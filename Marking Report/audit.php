@@ -22,7 +22,7 @@
 global $CFG, $OUTPUT, $PAGE;
 
 require_once '../../../config.php';
-require_once './auditlib.php';
+require_once $CFG->dirroot.'/grade/report/marking/auditlib.php';
 require_once '../../lib.php';
 require_once $CFG->libdir.'/adminlib.php';
 require_once $CFG->libdir.'/validateurlsyntax.php';
