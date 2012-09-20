@@ -21,7 +21,7 @@
  */
 
 require_once '../../../config.php';
-require_once '/auditlib.php';
+require_once $CFG->dirroot.'/grade/report/marking/auditlib.php';
 
 $filename = required_param('filename', PARAM_TEXT);
 
