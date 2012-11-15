@@ -270,7 +270,7 @@ $strmarkingreport = get_string('markingreport', 'gradereport_marking');
 $strgradeedit    = get_string('editgrade', 'grades');
 $struser         = get_string('user');
 
-grade_build_nav(__FILE__, $strgradeedit, array('courseid' => $courseid));
+grade_build_nav(__FILE__, $strgradeedit, array('id' => $courseid));
 
 /*********** BEGIN OUTPUT *************/
 $PAGE->set_title($strgrades . ': ' . $strmarkingreport . ': ' . $strgradeedit);
