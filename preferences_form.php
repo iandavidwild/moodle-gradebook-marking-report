@@ -110,6 +110,7 @@ class grader_report_preferences_form extends moodleform {
 
             $preferences['prefshow']['showactivityicons'] = $checkbox_default;
             $preferences['prefshow']['showranges'] = $checkbox_default;
+            $preferences['prefshow']['showidnumber'] = $checkbox_default;
 
             if ($canviewhidden) {
                 $preferences['prefrows']['shownumberofgrades'] = $checkbox_default;
@@ -167,11 +168,18 @@ class grader_report_preferences_form extends moodleform {
                     $options[GRADE_REPORT_PREFERENCE_DEFAULT] = get_string('reportdefault', 'grades', $default);
                 }
 
+                if ($lang_string == 'showidnumber'){
+                    $label = get_string($lang_string, 'gradereport_marking') . $number;
+                }else {
                 $label = get_string($lang_string, 'grades') . $number;
+                }
 
                 $mform->addElement($type, $full_pref, $label, $options);
-                if ($lang_string != 'showuserimage') {
+                if ($lang_string != 'showuserimage' && $lang_string != 'showidnumber' ) {
                     $mform->addHelpButton($full_pref, $lang_string, 'grades');
+                }
+                if ($lang_string == 'showidnumber') {
+                    $mform->addHelpButton($full_pref, $lang_string, 'gradereport_marking');
                 }
                 $mform->setDefault($full_pref, $pref_value);
                 $mform->setType($full_pref, PARAM_ALPHANUM);
