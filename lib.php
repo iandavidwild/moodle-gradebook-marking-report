@@ -666,7 +666,7 @@ class grade_report_marking extends grade_report {
                 	$fieldcell->attributes['class'] = 'header userfield user' . $field;
                 	$fieldcell->header = true;
                 	$fieldcell->scope = 'row';
-                	$fieldcell->text = $user->idnumber;
+                	$fieldcell->text = $user->{$field};
                 	$userrow->cells[] = $fieldcell;
             }
 
