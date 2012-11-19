@@ -337,7 +337,7 @@ class grade_report_marking extends grade_report {
         $userfields = user_picture::fields('u'); // IDW 30/7/12 ...although we aren't displaying their picture
         $userfields .= get_extra_user_fields_sql($this->context);
         // IDW 30/7/12 - also SELECT username because that's what we're displaying in the report
-        $userfields .= ',u.username';
+        $userfields .= ',u.username, u.idnumber';
 
         $sortjoin = $sort = $params = null;
 
@@ -555,7 +555,10 @@ class grade_report_marking extends grade_report {
         $strfeedback  = $this->get_lang_string("feedback");
         $strgrade     = $this->get_lang_string('grade');
 
-        $extrafields = get_extra_user_fields($this->context);
+        $showidnumber = $this->get_pref('showidnumber');
+
+        //check whether to include column with idnumber
+        ($showidnumber)? $extrafields = array ('idnumber') : $extrafields = array();
 
         $arrows = $this->get_sort_arrows($extrafields);
 
@@ -565,8 +568,9 @@ class grade_report_marking extends grade_report {
         if (has_capability('gradereport/'.$CFG->grade_profilereport.':view', $this->context)) {
             $colspan++;
         }
+        */
         $colspan += count($extrafields);
-		*/
+
         $levels = count($this->gtree->levels) - 1;
 
         for ($i = 0; $i < $levels; $i++) {
@@ -597,7 +601,6 @@ class grade_report_marking extends grade_report {
         $headerrow->cells[] = $studentheader;
 
         foreach ($extrafields as $field) {
-        	if($field != 'email') { // phew, that's nasty!
             	$fieldheader = new html_table_cell();
             	$fieldheader->attributes['class'] = 'header userfield user' . $field;
             	$fieldheader->scope = 'col';
@@ -605,7 +608,6 @@ class grade_report_marking extends grade_report {
             	$fieldheader->text = $arrows[$field];
 
             	$headerrow->cells[] = $fieldheader;
-        	}
         }
 
         $rows[] = $headerrow;
@@ -660,14 +662,12 @@ class grade_report_marking extends grade_report {
             }
 			*/
             foreach ($extrafields as $field) {
-            	if($field != 'email') { // phew, that's nasty!
                 	$fieldcell = new html_table_cell();
                 	$fieldcell->attributes['class'] = 'header userfield user' . $field;
                 	$fieldcell->header = true;
                 	$fieldcell->scope = 'row';
-                	$fieldcell->text = $user->{$field};
+                	$fieldcell->text = $user->idnumber;
                 	$userrow->cells[] = $fieldcell;
-            	}
             }
 
             $rows[] = $userrow;
@@ -1733,8 +1733,10 @@ class grade_report_marking extends grade_report {
         $strsortasc   = $this->get_lang_string('sortasc', 'grades');
         $strsortdesc  = $this->get_lang_string('sortdesc', 'grades');
         $strusername  = $this->get_lang_string('username');
+        $stridnumber  = $this->get_lang_string('idnumber');
 
         $userlink = html_writer::link(new moodle_url($this->baseurl, array('sortitemid'=>'username')), $strusername);
+        $idnumberlink = html_writer::link(new moodle_url($this->baseurl, array('sortitemid'=>'idnumber')), $stridnumber);
 
         $arrows['username'] = $userlink;
 
@@ -1746,9 +1748,17 @@ class grade_report_marking extends grade_report {
             }
         }
 
+        $arrows['idnumber'] = $idnumberlink;
+
+        if ($this->sortitemid === 'idnumber') {
+            if ($this->sortorder == 'ASC') {
+                $arrows['idnumber'] .= print_arrow('up', $strsortasc, true);
+            } else {
+                $arrows['idnumber'] .= print_arrow('down', $strsortdesc, true);
+            }
+        }
         foreach ($extrafields as $field) {
         	// IDW 30/7/12 Don't display email addresses as markers will be able to identify students
-        	if($field != 'email') { // phew, that's nasty!
 	            $fieldlink = html_writer::link(new moodle_url($this->baseurl,
 	                    array('sortitemid'=>$field)), get_user_field_name($field));
 	            $arrows[$field] = $fieldlink;
@@ -1760,7 +1770,6 @@ class grade_report_marking extends grade_report {
 	                    $arrows[$field] .= print_arrow('down', $strsortdesc, true);
 	                }
 	            }
-        	}
         }
 
         return $arrows;
