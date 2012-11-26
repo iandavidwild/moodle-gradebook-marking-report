@@ -54,4 +54,7 @@ $string['clickhere'] = 'Click here (opens in new window)';
 $string['showidnumber'] = 'Show ID Number';
 $string['showidnumber_help'] = 'If enabled, the marking report will contain an additional column displaying the user idnumber.';
 
+$string['username'] = 'ITS Username';
+$string['idnumber'] = 'Student Number';
+
 

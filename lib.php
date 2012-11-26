@@ -1732,8 +1732,8 @@ class grade_report_marking extends grade_report {
 
         $strsortasc   = $this->get_lang_string('sortasc', 'grades');
         $strsortdesc  = $this->get_lang_string('sortdesc', 'grades');
-        $strusername  = $this->get_lang_string('username');
-        $stridnumber  = $this->get_lang_string('idnumber');
+        $strusername  = $this->get_lang_string('username', 'gradereport_marking');
+        $stridnumber  = $this->get_lang_string('idnumber', 'gradereport_marking');
 
         $userlink = html_writer::link(new moodle_url($this->baseurl, array('sortitemid'=>'username')), $strusername);
         $idnumberlink = html_writer::link(new moodle_url($this->baseurl, array('sortitemid'=>'idnumber')), $stridnumber);
@@ -1757,7 +1757,7 @@ class grade_report_marking extends grade_report {
                 $arrows['idnumber'] .= print_arrow('down', $strsortdesc, true);
             }
         }
-        foreach ($extrafields as $field) {
+      /*  foreach ($extrafields as $field) {
         	// IDW 30/7/12 Don't display email addresses as markers will be able to identify students
 	            $fieldlink = html_writer::link(new moodle_url($this->baseurl,
 	                    array('sortitemid'=>$field)), get_user_field_name($field));
@@ -1770,7 +1770,7 @@ class grade_report_marking extends grade_report {
 	                    $arrows[$field] .= print_arrow('down', $strsortdesc, true);
 	                }
 	            }
-        }
+        }*/
 
         return $arrows;
     }
