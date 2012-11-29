@@ -36,6 +36,6 @@ if (!is_readable($filepath)) {
     print_error('unknowndownloadfile', 'gradereport_marking');
 }
 
-header('Content-Disposition: attachment; filename="gradeaudit.csv"');
+header('Content-Disposition: attachment; filename="gradeaudit-'.$filename.'"');
 header('Content-Type: text/csv; charset=UTF-8');
 readfile($filepath);
