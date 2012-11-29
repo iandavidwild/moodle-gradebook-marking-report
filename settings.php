@@ -61,7 +61,7 @@ if ($ADMIN->fulltree) {
                                                 get_string('showranges_help', 'grades'), 0));
 
     $settings->add(new admin_setting_configcheckbox('grade_report_showidnumber', get_string('showidnumber','gradereport_marking'),
-                                                      get_string('showidnumber_help','gradereport_marking'), 0));
+                                                      get_string('showidnumber_help','gradereport_marking'), 1));
 
     $settings->add(new admin_setting_configcheckbox('grade_report_showactivityicons', get_string('showactivityicons', 'grades'),
                                                 get_string('showactivityicons_help', 'grades'), 1));
