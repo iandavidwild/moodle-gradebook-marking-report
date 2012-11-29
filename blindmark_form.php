@@ -104,7 +104,7 @@ class edit_grade_form extends moodleform {
         $mform->setType('text', PARAM_RAW); // to be cleaned before display, no XSS risk
 
         // Grade audit history
-        $mform->addElement('static', 'history', get_string('grade_audit', 'gradereport_marking'));
+        $mform->addElement('static', 'history');
         
         // hidden params
         $mform->addElement('hidden', 'oldgrade');
@@ -159,7 +159,7 @@ class edit_grade_form extends moodleform {
         $id = $mform->getElementValue('id');
         $itemid = $mform->getElementValue('itemid');
         $courseid = $mform->getElementValue('courseid');
-    	$history = '<a target="_blank" href="'.$CFG->wwwroot.'/grade/report/marking/audit.php?id='.$id.'&itemid='.$itemid.'&userid='.$userid.'&courseid='.$courseid.'">'.get_string('clickhere', 'gradereport_marking').'</a>';
+    	$history = '<a target="_blank" href="'.$CFG->wwwroot.'/grade/report/marking/audit.php?id='.$id.'&itemid='.$itemid.'&userid='.$userid.'&courseid='.$courseid.'">'.get_string('grade_audit', 'gradereport_marking').'</a>';
         $history_el =& $mform->getElement('history');
         $history_el->setValue($history);
         
