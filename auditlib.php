@@ -78,7 +78,7 @@ function grade_audit_temp_cvs_name($timestamp) {
     global $CFG;
     $path = 'grade_audit/temp';
     make_upload_directory($path);
-    $filename = strftime('%Y%m%d-%H%M%S', intval($timestamp)).'.csv';
+    $filename = strftime('%Y-%m-%d--%H-%M-%S', intval($timestamp)).'.csv';
     $filepath = $CFG->dataroot.'/'.$path.'/'.$filename;
     return array($filepath, $filename);
 }
