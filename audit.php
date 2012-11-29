@@ -114,8 +114,10 @@ CASE
   WHEN gh.action=3 THEN \'deleted\'
 END AS \'Action\', 
 FROM_UNIXTIME(gh.timemodified,\'%Y %M %D %h:%i:%s\') AS time,
-CONCAT(lu.firstname,\' \', lu.lastname) AS \'Editing User\',  
-CONCAT(u.firstname,\' \', u.lastname) AS \'Edited User\',  
+CONCAT(lu.firstname,\' \', lu.lastname) AS \'Editor\',
+CONCAT(u.firstname,\' \', u.lastname) AS \'Student Name\',
+u.username AS \'Student Username\',
+u.idnumber AS \'Student Number\',
 gh.finalgrade AS \'Final Grade\',
 gh.feedback AS \'Feedback\'
 
