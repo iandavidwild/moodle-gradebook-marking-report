@@ -57,4 +57,18 @@ $string['showidnumber_help'] = 'If enabled, the marking report will contain an a
 $string['username'] = 'ITS Username';
 $string['idnumber'] = 'Student Number';
 
+// Audit report column headers
+$string['heading_course_idnumber'] = 'Course idnumber';
+$string['heading_course_fullname'] = 'Course fullname';
+$string['heading_student_username'] = 'Username';
+$string['heading_student_number'] = 'Student Number';
+$string['heading_student_name'] = 'Student';
+$string['heading_item_name'] = 'Item name';
+$string['heading_final_grade'] = 'Final grade';
+$string['heading_feedback'] = 'Feedback';
+$string['heading_action'] = 'Action';
+$string['heading_editor'] = 'Editor';
+$string['heading_time'] = 'Date and Time';
+
+
 
