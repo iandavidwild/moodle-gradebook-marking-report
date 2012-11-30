@@ -128,6 +128,11 @@ function grade_audit_start_csv($handle, $firstrow) {
     grade_audit_write_csv_row($handle, $colnames);
 }
 
+/**
+ * Delete files that were last accessed over 24 hours ago.
+ *
+ * @return int
+ */
 function grade_audit_delete_old_temp_files() {
     global $CFG;
 
@@ -138,9 +143,14 @@ function grade_audit_delete_old_temp_files() {
         return;
     }
     foreach ($files as $file) {
-        
-        unlink($file);
-        $count += 1;
+        $last_access_time = filectime($file);
+        $time_now = time();
+        if( ($time_now - $last_access_time) > 86400) {
+            if(unlink($file) ) {
+                $count += 1;
+            }
+        }
+
     }
 
     return $count;
