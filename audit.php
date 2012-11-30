@@ -119,7 +119,7 @@ CASE
   WHEN gh.action=3 THEN 'deleted'
 END AS 'Action',
 
-FROM_UNIXTIME(gh.timemodified, '%Y %M %D %H:%i:%s') AS time,
+FROM_UNIXTIME(gh.timemodified, '%Y-%m-%d %H:%i:%s') AS time,
 CONCAT(lu.firstname,' ', lu.lastname) AS 'Editor',
 CONCAT(u.firstname,' ', u.lastname) AS 'Student Name',
 u.username AS 'Student Username',
