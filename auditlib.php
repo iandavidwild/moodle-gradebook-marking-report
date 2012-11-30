@@ -150,7 +150,6 @@ function grade_audit_delete_old_temp_files() {
                 $count += 1;
             }
         }
-
     }
 
     return $count;
