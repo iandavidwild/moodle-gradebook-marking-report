@@ -123,7 +123,7 @@ $report =
 
 '{$course->idnumber}' AS '{$idnumber_heading}',
 '{$course->fullname}' AS '{$fullname_heading}',
-u.username AS '{$student_username_heading}',
+u.username AS '{$username_heading}',
 u.idnumber AS '{$student_number_heading}',
 CONCAT(u.firstname,' ', u.lastname) AS '{$student_name_heading}',
 gi.itemname AS '{$item_name_heading}',
