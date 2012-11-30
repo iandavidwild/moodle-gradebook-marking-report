@@ -104,12 +104,25 @@ if (groups_get_course_groupmode($COURSE) == SEPARATEGROUPS and !has_capability('
 $reportname = get_string('grade_audit', 'gradereport_marking'); // ... which it isn't, but that will do for now.
 print_grade_page_head($COURSE->id, 'report', 'marking', $reportname, false, '');
 
+// Output column headings
+$time_heading = get_string('heading_time', 'gradereport_marking');
+$idnumber_heading = get_string('heading_course_idnumber', 'gradereport_marking');
+$fullname_heading = get_string('heading_course_fullname', 'gradereport_marking');
+$username_heading = get_string('heading_student_username', 'gradereport_marking');
+$student_number_heading = get_string('heading_student_number', 'gradereport_marking');
+$student_name_heading = get_string('heading_student_name', 'gradereport_marking');
+$item_name_heading = get_string('heading_item_name', 'gradereport_marking');
+$final_grade_heading = get_string('heading_final_grade', 'gradereport_marking');
+$feedback_heading = get_string('heading_feedback', 'gradereport_marking');
+$action_heading = get_string('heading_action', 'gradereport_marking');
+$editor_heading = get_string('heading_editor', 'gradereport_marking');
+
 // the SQL query:
 $report = 
 "SELECT DISTINCT
 
-'{$course->fullname}' AS 'Course fullname',
-'{$course->idnumber}' AS 'Course idnumber',
+'{$course->fullname}' AS '{$idnumber_heading}',
+'{$course->idnumber}' AS '{$fullname_heading}',
 
 gi.itemname AS 'Item name',
 
@@ -119,20 +132,20 @@ CASE
   WHEN gh.action=3 THEN 'deleted'
 END AS 'Action',
 
-FROM_UNIXTIME(gh.timemodified, '%Y-%m-%d %H:%i:%s') AS time,
-CONCAT(lu.firstname,' ', lu.lastname) AS 'Editor',
-CONCAT(u.firstname,' ', u.lastname) AS 'Student Name',
-u.username AS 'Student Username',
-u.idnumber AS 'Student Number',
-gh.finalgrade AS 'Final Grade',
-gh.feedback AS 'Feedback'
+FROM_UNIXTIME(gh.timemodified, '%Y-%m-%d %H:%i:%s') AS '{$time_heading}',
+CONCAT(lu.firstname,' ', lu.lastname) AS '{$editor_heading}',
+CONCAT(u.firstname,' ', u.lastname) AS '{$student_name_heading}',
+u.username AS '{$student_username_heading}',
+u.idnumber AS '{$student_number_heading}',
+gh.finalgrade AS '{$final_grade_heading}',
+gh.feedback AS '{$feedback_heading}'
 
 FROM prefix_grade_grades_history AS gh
 JOIN prefix_user AS lu ON lu.id=gh.loggeduser
 JOIN prefix_user AS u ON u.id=gh.userid
 JOIN prefix_grade_items AS gi ON gh.itemid=gi.id
 
-WHERE u.id='{$userid}' AND gh.itemid='{$itemid}' ORDER BY time ASC";
+WHERE u.id='{$userid}' AND gh.itemid='{$itemid}' ORDER BY '{$timeheading}' ASC";
 
 // Clean up on the way in 
 grade_audit_delete_old_temp_files();
