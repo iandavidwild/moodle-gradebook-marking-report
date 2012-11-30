@@ -121,24 +121,22 @@ $editor_heading = get_string('heading_editor', 'gradereport_marking');
 $report = 
 "SELECT DISTINCT
 
-'{$course->fullname}' AS '{$idnumber_heading}',
-'{$course->idnumber}' AS '{$fullname_heading}',
-
-gi.itemname AS 'Item name',
+'{$course->idnumber}' AS '{$idnumber_heading}',
+'{$course->fullname}' AS '{$fullname_heading}',
+u.username AS '{$student_username_heading}',
+u.idnumber AS '{$student_number_heading}',
+CONCAT(u.firstname,' ', u.lastname) AS '{$student_name_heading}',
+gi.itemname AS '{$item_name_heading}',
+gh.finalgrade AS '{$final_grade_heading}',
+gh.feedback AS '{$feedback_heading}',
 
 CASE
   WHEN gh.action=1 THEN 'inserted'
   WHEN gh.action=2 THEN 'edited'
   WHEN gh.action=3 THEN 'deleted'
 END AS 'Action',
-
-FROM_UNIXTIME(gh.timemodified, '%Y-%m-%d %H:%i:%s') AS '{$time_heading}',
 CONCAT(lu.firstname,' ', lu.lastname) AS '{$editor_heading}',
-CONCAT(u.firstname,' ', u.lastname) AS '{$student_name_heading}',
-u.username AS '{$student_username_heading}',
-u.idnumber AS '{$student_number_heading}',
-gh.finalgrade AS '{$final_grade_heading}',
-gh.feedback AS '{$feedback_heading}'
+FROM_UNIXTIME(gh.timemodified, '%Y-%m-%d %H:%i:%s') AS '{$time_heading}'
 
 FROM prefix_grade_grades_history AS gh
 JOIN prefix_user AS lu ON lu.id=gh.loggeduser
