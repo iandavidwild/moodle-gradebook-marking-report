@@ -106,26 +106,33 @@ print_grade_page_head($COURSE->id, 'report', 'marking', $reportname, false, '');
 
 // the SQL query:
 $report = 
-'SELECT 
+"SELECT DISTINCT
+
+'{$course->fullname}' AS 'Course fullname',
+'{$course->idnumber}' AS 'Course idnumber',
+
+gi.itemname AS 'Item name',
 
 CASE
-  WHEN gh.action=1 THEN \'inserted\'
-  WHEN gh.action=2 THEN \'edited\'
-  WHEN gh.action=3 THEN \'deleted\'
-END AS \'Action\', 
-FROM_UNIXTIME(gh.timemodified,\'%Y %M %D %h:%i:%s\') AS time,
-CONCAT(lu.firstname,\' \', lu.lastname) AS \'Editor\',
-CONCAT(u.firstname,\' \', u.lastname) AS \'Student Name\',
-u.username AS \'Student Username\',
-u.idnumber AS \'Student Number\',
-gh.finalgrade AS \'Final Grade\',
-gh.feedback AS \'Feedback\'
+  WHEN gh.action=1 THEN 'inserted'
+  WHEN gh.action=2 THEN 'edited'
+  WHEN gh.action=3 THEN 'deleted'
+END AS 'Action',
+
+FROM_UNIXTIME(gh.timemodified, '%Y %M %D %H:%i:%s') AS time,
+CONCAT(lu.firstname,' ', lu.lastname) AS 'Editor',
+CONCAT(u.firstname,' ', u.lastname) AS 'Student Name',
+u.username AS 'Student Username',
+u.idnumber AS 'Student Number',
+gh.finalgrade AS 'Final Grade',
+gh.feedback AS 'Feedback'
 
 FROM prefix_grade_grades_history AS gh
 JOIN prefix_user AS lu ON lu.id=gh.loggeduser
 JOIN prefix_user AS u ON u.id=gh.userid
+JOIN prefix_grade_items AS gi ON gh.itemid=gi.id
 
-WHERE u.id=\''.$userid.'\' AND gh.itemid=\''.$itemid.'\' ORDER BY time ASC';
+WHERE u.id='{$userid}' AND gh.itemid='{$itemid}' ORDER BY time ASC";
 
 // Clean up on the way in 
 grade_audit_delete_old_temp_files();
