@@ -26,5 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version   = 2012112900;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2011112900;        // Requires this Moodle version
+$plugin->requires  = 2011120500;        // Requires this Moodle version
 $plugin->component = 'gradereport_marking'; // Full name of the plugin (used for diagnostics)
+$module->maturity  = MATURITY_STABLE;
+$module->release   = "1.1 (20121206)";  // User-friendly version number
