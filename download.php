@@ -23,14 +23,41 @@
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/report/marking/auditlib.php';
 
+global $USER;
+
 $filename = required_param('filename', PARAM_TEXT);
 
+// Functions to sanity check filename...
+
+// 1. Sanity check the filename as we only want to download marking reports...
+$parts=explode(".",$filename);
+$extension = $parts[count($parts)-1];
+
+if(strcmp($extension, 'csv') != 0) {
+    die();
+}
+
+// 2. Ensure the filename doesn't contain '..' anywhere
+$dot_result = preg_match('/\.\./', $filename);
+if($dot_result) {
+    die();
+}
+
+// 3. If we get this far then use Moodle's standard sanity checking...
+$downloadfilename = clean_filename(strip_tags($filename));
+
+// You also need to be logged in...
 require_login();
+
+// ...but have the capability to view the marking report (in case a user tries to come straight to this file)...
+if(!has_capability('gradereport/marking:view', $this->context)) {
+    die();
+}
 
 $context = get_context_instance(CONTEXT_SYSTEM);
 
 $path = 'grade_audit/temp';
-$filepath = $CFG->dataroot.'/'.$path.'/'.$filename;
+$filepath = $CFG->dataroot.'/'.$path.'/'.$downloadfilename;
 
 if (!is_readable($filepath)) {
     print_error('unknowndownloadfile', 'gradereport_marking');
