@@ -49,6 +49,11 @@ $downloadfilename = clean_filename(strip_tags($filename));
 // You also need to be logged in...
 require_login();
 
+// 4. Check whether the user is a guest
+if ($USER->username=='guest'){
+    die();
+}
+
 $context = get_context_instance(CONTEXT_SYSTEM);
 
 $path = 'grade_audit/temp';
