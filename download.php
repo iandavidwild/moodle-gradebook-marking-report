@@ -49,11 +49,6 @@ $downloadfilename = clean_filename(strip_tags($filename));
 // You also need to be logged in...
 require_login();
 
-// ...but have the capability to view the marking report (in case a user tries to come straight to this file)...
-if(!has_capability('gradereport/marking:view', $this->context)) {
-    die();
-}
-
 $context = get_context_instance(CONTEXT_SYSTEM);
 
 $path = 'grade_audit/temp';
