@@ -143,7 +143,7 @@ JOIN prefix_user AS lu ON lu.id=gh.loggeduser
 JOIN prefix_user AS u ON u.id=gh.userid
 JOIN prefix_grade_items AS gi ON gh.itemid=gi.id
 
-WHERE u.id='{$userid}' AND gh.itemid='{$itemid}' ORDER BY '{$timeheading}' ASC";
+WHERE u.id='{$userid}' AND gh.itemid='{$itemid}' ORDER BY '{$time_heading}' ASC";
 
 // Clean up on the way in 
 grade_audit_delete_old_temp_files();
