@@ -1490,7 +1490,7 @@ class grade_report_marking extends grade_report {
     	}
    
     	if ($url) {
-    		return $OUTPUT->action_icon($gpr->add_url_params($url), new pix_icon('t/audit', $strgradeaudit));
+    		return $OUTPUT->action_icon($gpr->add_url_params($url), new pix_icon('audit', $strgradeaudit, 'gradereport_marking'));
     
     	} else {
     		return '';
