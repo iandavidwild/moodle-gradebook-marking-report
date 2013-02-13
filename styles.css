@@ -576,14 +576,10 @@ background-color:#f3ead8;
     vertical-align:middle;
 }
 
-.path-grade-report-marking .yui-overlay {
-    background-color: #FFEE69;
-    border-color: #D4C237 #A6982B #A6982B;
-    border-style: solid;
-    border-width: 1px;
-    left: 0;
-    padding: 2px 5px;
-    font-size: 0.7em;
+.path-grade-report-marking .markingreportoverlay {
+	background-color:#EEEEEE;
+	border:1px solid black;
+	padding:10px;
 }
 
 .path-grade-report-marking .yui-overlay .fullname {
