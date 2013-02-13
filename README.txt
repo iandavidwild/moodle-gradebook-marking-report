@@ -7,8 +7,7 @@ HOW TO INSTALL
 --------------
 
 1. Download all files and copy them into a folder called 'marking' in your Moodle's ./grade/report folder.
-2. Copy audit.gif to your theme's ./pix/t folder.
-3. From the Settings block, select on Site administration->Notifications to complete the installation.
+2. From the Settings block, select on Site administration->Notifications to complete the installation.
 
 The Marking report and grade edit pages will need to be styled. Here is some basic styling, which you can add to your theme's 'grade.css' file:
 
@@ -26,3 +25,6 @@ The Marking report and grade edit pages will need to be styled. Here is some bas
 .path-grade-report-marking ul#grade_tree li {list-style: none;}
 .path-grade-report-marking ul#grade_tree li.category {margin-bottom: 6px;}
 .path-grade-report-marking .iconsmall {margin-left: 4px;}
+
+All but the icon 'audit.gif' (located in the plug-in's ./pix folder) are 'standard' Moodle icons. If you wish to replace this icon with your own then you can do so by adding a file
+also called 'audit.gif' to your theme's 'pix_plugins/gradereport/marking' folder.
