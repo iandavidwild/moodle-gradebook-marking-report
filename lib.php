@@ -417,6 +417,10 @@ class grade_report_marking extends grade_report {
     public function load_final_grades() {
         global $CFG, $DB;
 
+        if (!empty($this->grades)) {
+        	return;
+        }
+        
         // please note that we must fetch all grade_grades fields if we want to construct grade_grade object from it!
         $params = array_merge(array('courseid'=>$this->courseid), $this->userselect_params);
         $sql = "SELECT g.*
@@ -431,7 +435,7 @@ class grade_report_marking extends grade_report {
             foreach ($grades as $graderec) {
                 if (in_array($graderec->userid, $userids) and array_key_exists($graderec->itemid, $this->gtree->get_items())) { // some items may not be present!!
                     $this->grades[$graderec->userid][$graderec->itemid] = new grade_grade($graderec, false);
-                    $this->grades[$graderec->userid][$graderec->itemid]->grade_item =& $this->gtree->get_item($graderec->itemid); // db caching
+                    $this->grades[$graderec->userid][$graderec->itemid]->grade_item = $this->gtree->get_item($graderec->itemid); // db caching
                 }
             }
         }
@@ -443,7 +447,7 @@ class grade_report_marking extends grade_report {
                     $this->grades[$userid][$itemid] = new grade_grade();
                     $this->grades[$userid][$itemid]->itemid = $itemid;
                     $this->grades[$userid][$itemid]->userid = $userid;
-                    $this->grades[$userid][$itemid]->grade_item =& $this->gtree->get_item($itemid); // db caching
+                    $this->grades[$userid][$itemid]->grade_item = $this->gtree->get_item($itemid); // db caching
                 }
             }
         }
@@ -1218,7 +1222,7 @@ class grade_report_marking extends grade_report {
 
             foreach ($this->gtree->items as $itemid=>$unused) {
                 // emulate grade element
-                $item =& $this->gtree->get_item($itemid);
+                $item = $this->gtree->get_item($itemid);
 
                 $eid = $this->gtree->get_item_eid($item);
                 $element = $this->gtree->locate_element($eid);
